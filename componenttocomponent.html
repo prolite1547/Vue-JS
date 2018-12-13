@@ -1,0 +1,95 @@
+<html>
+	<head>
+	<meta http-eqiv='content-type' content='text/html;charset=utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+	<script type ='text/javascript' src='vue.js'></script>
+	   <script type ='text/javascript' src='jquery-3.3.1.js'></script>
+	<style>
+		#app p{
+			background : red;
+			color : white;
+			font-weight : bold;
+		}
+		
+		#app{
+			width : 300px;
+			height : 300px;
+			border : red solid 2px;
+			
+		}
+		
+		.template1{
+		padding : 10px;
+		}
+	</style>
+	</head>
+	
+	<body>
+		<div id = 'app'>
+			
+			<comp_1 v-on:sent_data1='message=arguments[0]'><p>{{message}}</p></comp_1>
+			<comp_2></comp_2>
+		</div>
+	<template id = 'temp1'>
+		<div class = 'template1'>
+			<slot></slot>
+			<input v-model = 'msg_comp1'/>
+			<button v-on:click='send'> Send data </button>
+		<hr/>
+		</div>
+		
+	</template>
+
+	<template id = 'temp2'>
+		<div class = 'template2'>
+			<h1>Component 2</h1>
+			<p>{{msg_comp2}}</p>
+		</div>
+	</template>
+
+	
+	<script type = 'text/javascript'>
+	     var bus = new Vue()
+		var oomp1 = Vue.component('comp_1',{
+			template : '#temp1',
+			data : function(){
+				return{
+					msg_comp1: 'Send this data',
+				}
+			},
+			props : ['prop'],
+			methods : {
+				send : function(){
+					this.$emit('sent_data1',this.msg_comp1);
+					bus.$emit('sent_data1',this.msg_comp1);
+					
+				}
+			},
+		})
+		
+		var oomp2 = Vue.component('comp_2',{
+			template : '#temp2',
+			data : function(){
+				return{
+					msg_comp2: 'Waiting for data from comp 1',
+				}
+			},
+			created : function(){
+				bus.$on('sent_data1',function(v){
+					 this.msg_comp2 = v
+				}.bind(this))
+			}, 
+		})
+		
+		
+		
+		var vm = new Vue({
+			el: '#app',
+			data : {
+				message : 'Vue data.. waiting for component data',
+			},
+		})
+	</script>
+	
+	</body>
+</html>

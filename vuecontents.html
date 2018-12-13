@@ -1,0 +1,134 @@
+<html>
+	<head>
+		<script type = 'text/javascript' src = 'vue.js'></script>
+	    <script type ='text/javascript' src='jquery-3.3.1.js'></script>
+
+		<style>
+			 .main{
+				height : 250px;
+				width : 200px;
+				border : black solid 2px;
+				border-radius : 5px;
+				float:left;
+				margin: 10px;
+				position : relative;
+			 }
+			 
+			 img{
+				width: 200px;
+				height: 250px;
+				
+			 }
+			 .stars{	
+			 	position : absolute;
+                background : black;
+				margin-top : 10px;
+				border: red solid 2px;
+				border-radius : 5px;
+				color : white;
+				z-index : 101;
+				top : 0px;
+				left : 100%
+				padding-left: 5px;
+				padding-right: 5px;
+				padding-top: 2px;
+				padding-bottom: 2px;
+			
+			 }
+			 .title{
+				position : absolute;
+                background : yellow;
+				margin-left : 10px;
+				margin-bottom : 10px;
+				color : black;
+				z-index : 101;
+				bottom : 0px;
+				padding-left: 5px;
+				padding-right: 5px;
+				padding-top: 2px;
+				padding-bottom: 2px;
+				border : yellow solid 2px;
+				border-radius : 5px;
+				font-weight : bold;
+				
+			 }
+		    
+			 
+			 #hoverlink{
+			 	width: 200px;
+				height: 250px;
+				opacity : 0.2;
+				position : absolute;
+				z-index : 100;
+				
+			 
+			 }
+	            .hover{
+				opacity : 0.5;
+				width : 100%;
+				height : 100%;
+				
+				position : absolute;
+				top : 0px;
+				left : 0px;
+				z-index : 100;
+			
+			  
+			 }
+            a {
+			   display:block;
+				width : 100%;
+				height : 100%;
+				
+			}			  
+		</style>
+	</head>
+	
+	<body>
+	<div id ='app'>
+		<div id = 'main_content' class = 'main' v-for='element in images'>
+			<!--<a id='hoverlink' href='#'></a>-->
+			<div class = 'hover' href='#'> <a href= '#'></a></div> 
+			<span class = 'title'>{{element.title}}</span>
+			<img v-bind:src = 'element.url'/>
+			<span class = 'stars'>{{element.stars}}</span>
+	    	
+			
+		</div>
+	</div>
+		
+		
+		<script type = 'text/javascript'>
+	    $('.title').hide()
+		 
+		
+		  
+		 
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				 check : false,
+				 images : [{url:'./img/1.jpg', title : 'Feral', stars : '7.8'},
+						   {url:'./img/2.jpg', title : 'The Lost Viking', stars : '8.0'},
+						   {url:'./img/3.jpg', title : 'Ibiza', stars : '7.0'},
+						   {url:'./img/4.jpg', title : 'The Last Witness', stars : '10'},
+						   {url:'./img/5.jpg', title : 'Love, Simon', stars : '10'}],	 
+			},
+		 
+		})
+		
+		
+		$('.hover').mouseenter(function(){
+		    $(this).next().show()
+			$(this).css('background','black')
+		}).mouseleave(function(){
+			$(this).next().hide()
+			$(this).css('background','')
+			
+	})
+		
+		 
+		</script>
+	
+	</body>
+</html>

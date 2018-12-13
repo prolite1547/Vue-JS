@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<script type = 'text/javascript' src = 'vue.js'></script>
+		<style>
+			.red{
+				border: red solid 2px;
+				
+			}
+		</style>
+	</head>
+	
+	<body>
+	<div id ='app'>
+		 <input type = 'text' v-model='message' v-on:input='check' v-bind:class={red:!remain}>
+		 <p> {{remain}} / {{limit}}</p> 
+		 
+	</div>
+		
+		<script type = 'text/javascript'>
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				 message : '',
+				 limit : 10,
+				 
+				 
+			},
+			methods: {
+				check : function(){
+				 this.message = this.message.substr(0,10)
+				 
+				}
+			},
+			computed : {
+				remain : function(){
+					return this.limit - this.message.length
+				}
+				 
+			},
+		})
+		
+		</script>
+	
+	</body>
+</html>

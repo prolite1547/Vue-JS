@@ -1,0 +1,79 @@
+<html>
+	<head>
+	<meta http-eqiv='content-type' content='text/html;charset=utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+	<script type ='text/javascript' src='vue.js'></script>
+	   <script type ='text/javascript' src='jquery-3.3.1.js'></script>
+	<style>
+		#app{
+			border:red solid 2px;
+			width : 300px;
+			
+		}
+		p{
+			background : red;
+			color: white;
+		}
+		.template_parent{
+			border:blue solid 2px;
+		    padding : 10px;
+		}
+	 </style>
+	</head>
+	
+	<body>
+		<div id='app'>
+			<h1>Parent Div</h1>
+			<comp v-on:relay='allocate' v-on:click.native='alert'></comp>
+			<hr/>
+			<p>{{content1}}</p>
+			<p>{{content2}}</p>
+			
+		</div>
+		
+		<template id ='temp'>
+			<div class 	= 'template_parent'>
+				<h2>Component</h2>
+				<input  v-model='message1'/>
+				<input  v-model='message2'/>
+				<button v-on:click = 'send'> Send Data </button>
+			</div>
+		</template>
+	
+	<script type = 'text/javascript'>
+		var comp = Vue.component('comp',{
+				template : '#temp',
+				data : function(){
+					return {
+						message1 : 'Type text 1 here',
+						message2 : 'Type text 2 here',
+					}
+				},
+				props : [],
+				methods : {
+					send : function(){
+						this.$emit('relay',this.message1,this.message2);
+					}
+				},
+			})
+			
+			var vm = new Vue({
+				el : '#app',
+				data : {
+					content1 : 'Waiting for data 1 to be sent',
+					content2 : 'Waiting for data 2 to be sent',
+				},
+				methods : {
+					allocate : function(v1,v2){
+						this.content1 = v1;
+						this.content2 = v2;
+					},
+					alert : function(){
+						alert('Hello')
+					},
+				},
+			})
+	</script>
+	
+	</body>
+</html>

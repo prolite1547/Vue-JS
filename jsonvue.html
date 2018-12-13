@@ -1,0 +1,67 @@
+<html>
+	<head>\
+		<script type = 'text/javascript' src = 'jquery-3.3.1.js'></script>
+		<script type = 'text/javascript' src='vue.js'></script>
+		<style>
+			*{list-style:none}
+		</style>
+	</head>
+	
+	<body>
+	<!--<input type = 'submit' onclick = 'request()' name = 'btnClick' value = 'Show Data'/>
+	-->
+	
+	<input type = 'submit' onclick = 'request()'name = 'btnRefresh' value = 'Refresh'/>
+	<div id = 'app'>
+	<ul id = 'ul'></ul>
+	</div>
+	
+		<script type = 'text/javascript'>
+        function request(){	     
+		 var response;
+	
+			$.ajax({
+			 url : './jsonvue.php',
+			 method : 'POST',
+			 data : {
+				name : 'MICHAEL JOHN'
+			 },
+			
+			})
+			.always(function(data){
+			 console.log("ALWAYS : " + data)
+			 
+			 
+			 })
+			 
+			 .done(function(data){
+			  response = JSON.parse(data)
+			   var vm = new Vue({
+				el:'#app',
+				data : {
+					info_set:response
+				},
+				methods:{
+					req : function(){
+						request()
+					}
+				},
+			 })
+             
+			 $('#ul').attr('v-for','element in info_set')
+			 $('#ul').append('<li>'+reponse)
+			 
+		
+ 			 })
+			.fail(function(data){
+			 console.log("FAIL : " + data.status)
+			 })
+			 }
+			
+			 
+			 
+		</script>
+		
+	
+	</body>
+</html>

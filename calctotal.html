@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<meta http-eqiv='content-type' content='text/html;charset=utf-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+		<script type ='text/javascript' src='vue.js'></script>
+		   <script type ='text/javascript' src='jquery-3.3.1.js'></script>
+		<style>
+		 
+		</style>
+	</head>
+	
+	<body>
+		<div id = 'app'>
+			<comp label='Price' v-bind:value='price' v-on:input='price=arguments[0]'></comp>
+			<comp label='Shipping Fee' v-bind:value='shipping' v-on:input='shipping=arguments[0]'></comp>
+			<comp label='Discount' v-bind:value='discount' v-on:input='discount=arguments[0]'></comp>
+			<hr/>
+			<p> Total Cost : {{total}} </p>
+		</div>
+		 
+		<template id = 'temp'>
+			<div class = 'comp_root'>
+				<label>{{label}}</label></br>
+				<input  v-on:input='send($event.target.value)'/>
+			</div>	
+		</template>
+		
+		<script type = 'text/javascript'>
+			Vue.component('comp',{
+				template : '#temp',
+				data : function(){
+					return{}
+				},
+				props : ['label','value','input'],
+				methods : {
+					send : function(val){
+						this.$emit('input',val)
+					}
+				},
+			})
+			
+		
+			var vm = new Vue({
+				el: '#app',
+				data : {
+					price : 0,
+					shipping : 0,
+					discount : 0,
+				},
+				computed : {
+					total :	function(){
+					this.price = Number(this.price);
+					this.shipping = Number(this.shipping);
+					this.discount = Number(this.discount);
+					return this.price + this.shipping - this.discount;
+				}
+				}
+			})
+		</script>
+	</body>
+</html>

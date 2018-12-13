@@ -1,0 +1,64 @@
+<html>
+	<head>
+	<meta http-eqiv='content-type' content='text/html;charset=utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+	<script type ='text/javascript' src='vue.js'></script>
+	   <script type ='text/javascript' src='jquery-3.3.1.js'></script>
+		<style>
+			.comp_root{
+				background:red;
+				color:white;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div id='app'>
+			<simple_comp name='Michael John Dequina'> </simple_comp>
+		</div>
+		
+		<template id ='temp'>
+			<div class = 'comp_root'>
+				<p>This is a component</p>
+				<p>{{message}}</p>
+				
+				
+			</div>
+		</template>
+	
+	 <script type = 'text/javascript'>
+			Vue.component('simple_comp',{
+				template : '#temp',
+				data : function(){
+					return{
+						message : 'My name is '+ this.name,
+					}
+				},
+				props :['name'],
+				methods :{},
+			})
+	
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					vuedata : "Vue's Data",
+				},
+				computed:{},
+		     	methods:{},
+				components : {
+				comp : {
+				template : '#temp',
+				data : function(){
+					return{
+						message : 'Components our own message and ' + this.prop,
+					}
+				},
+				props :['prop'],
+				methods :{},	
+				}
+				},
+			})
+	</script>
+	
+	</body>
+</html>

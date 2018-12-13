@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<script type = 'text/javascript' src = 'vue.js'></script>
+	</head>
+	
+	<body>
+	<div id ='app'>
+		<select v-model='message'>
+			<option v-for='element in info_set' v-bind:value='element.value'>{{element.text}}</option>
+		</select>
+		<hr/>
+		<p>This is the data sent : {{message}}</p>
+	</div>
+		
+		<script type = 'text/javascript'>
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				message : 'Data',
+				info_set : [{value:'Apple',text:'Apple'},
+							{value:'Orange',text:'Orange'},
+							{value:'Pineapple',text:'Pineapple'}],
+			},
+		})
+		
+		</script>
+	
+	</body>
+</html>

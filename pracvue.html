@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title> PRACTICING VUE.js</title>
+		<script type = 'text/javascript' src='vue.js'></script>
+		<style>
+			*{list-style:none}
+		</style>
+	</head>
+	
+	<body>
+		<div id='app'>
+ 		 <ul v-for= 'element in info_set'>
+			<li v-on:click='output(element.brand)'>{{element.brand}}</li>
+			<li>{{element.Price}}</li>
+		 </ul>
+		</div>
+		
+		<script type = 'text/javascript'>
+			var arr = [{brand:'Samsung',Price:'P 14,000'},
+					   {brand: 'Vivo',Price:'P 15,000'},
+					   {brand:'IPhone',Price:'P 20,000'},
+					   {brand:'Cherry Mobile',Price:'P 10,000'},
+					   ]
+					   
+			var model = {
+		   	info_set: arr,
+			}
+			
+			var vm  = new Vue({
+				el : '#app',
+				data : model,
+				methods :{
+					output : function(eleme){
+					 alert(eleme)
+					}, 
+				}
+			})
+		</script>
+	</body>
+</html>
